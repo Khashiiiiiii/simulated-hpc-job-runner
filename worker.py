@@ -18,6 +18,12 @@ def perform_heavy_computation(job_data):
 
     if complexity > 20:
         print(f" [!] Job {job_data['id']} rejected: Complexity too high.")
+        error_data = {
+            "status": "failed", 
+            "job_id": job_id, 
+            "error": "Complexity too high"
+        }
+        r.set(job_id, json.dumps(error_data))
         return
     
     size = complexity * 500
